@@ -8,6 +8,6 @@ class MainTest {
 
     @Test
     void init() {
-        assertEquals(1,1);
+        assertEquals(2,2);
     }
 }
