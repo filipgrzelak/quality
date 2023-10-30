@@ -3,7 +3,6 @@ package org.example.category;
 import io.restassured.RestAssured;
 import io.restassured.response.ValidatableResponse;
 import org.example.BaseTest;
-import org.example.brand.model.BrandResponse;
 import org.example.category.model.CategoryResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,7 +58,7 @@ public class CategoryGetTest extends BaseTest {
     void getCategoriesByIDBadMethod() {
         ValidatableResponse response = given()
                 .when()
-                .delete("/categories/%s".formatted("badId"))
+                .delete("/categories/%s".formatted("abcdef"))
                 .then()
                 .statusCode(401);
         String errorMessage = response.extract().body().jsonPath().getString("message");
@@ -70,7 +69,7 @@ public class CategoryGetTest extends BaseTest {
     void getCategoriesIDNotFound() {
         ValidatableResponse response = given()
                 .when()
-                .get("/categories/%s".formatted("badId"))
+                .get("/categories/%s".formatted("abcdef"))
                 .then()
                 .statusCode(404);
         String errorMessage = response.extract().body().jsonPath().getString("message");
