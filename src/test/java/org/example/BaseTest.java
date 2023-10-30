@@ -42,6 +42,12 @@ public class BaseTest {
         return dataList.size();
     }
 
+    public int numberOfRecordsAdmin(String url) {
+        ValidatableResponse response = given().header("Authorization", adminToken()).when().get(url).then();
+        response.statusCode(200);
+        return response.extract().jsonPath().getMap("$").size();
+    }
+
     public <T> List<T> responseListOfSpecificType(String url, Class<T> clazz) {
         return given().header("Authorization", adminToken()).when().get(url).then().extract().body().jsonPath().getList(".", clazz);
     }

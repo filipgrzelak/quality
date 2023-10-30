@@ -5,7 +5,6 @@ import io.restassured.response.ValidatableResponse;
 import org.example.BaseTest;
 import org.example.category.model.CategoryRequest;
 import org.example.category.model.CategoryResponse;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +30,7 @@ public class CategoryPostTest extends BaseTest {
 
         ValidatableResponse response = given()
                 .header("Content-Type", "application/json")
+                .header("Authorization", adminToken())
                 .body(jsonNewCategory)
                 .when()
                 .post("/categories")
@@ -57,6 +57,7 @@ public class CategoryPostTest extends BaseTest {
 
         ValidatableResponse response = given()
                 .header("Content-Type", "application/json")
+                .header("Authorization", adminToken())
                 .body(jsonNewCategory)
                 .when()
                 .delete("/categories")
@@ -79,6 +80,7 @@ public class CategoryPostTest extends BaseTest {
 
         given()
                 .header("Content-Type", "application/json")
+                .header("Authorization", adminToken())
                 .body(jsonNewBrand)
                 .when()
                 .post("/categories")
