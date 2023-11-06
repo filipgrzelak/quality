@@ -4,8 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.ResponseBody;
 import io.restassured.response.ValidatableResponse;
 import org.example.model.AuthLoginRequest;
+import org.example.user.model.UserRequest;
+import org.example.user.register.model.UserRegisterResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 
@@ -30,6 +33,13 @@ public class BaseTest {
         ValidatableResponse response = given().when().get(url).then();
         response.statusCode(200);
         return response.extract().jsonPath().getList("$").size();
+    }
+
+    public int numberOfProductRecords(String url) {
+        ValidatableResponse response = given().contentType("application/json").when().get(url).then();
+        response.statusCode(200);
+        List<Map<String, Object>> dataList = response.extract().jsonPath().getList("data");
+        return dataList.size();
     }
 
     public <T> List<T> responseListOfSpecificType(String url, Class<T> clazz) {
@@ -88,5 +98,43 @@ public class BaseTest {
                 .getBody();
 
         return "Bearer " + response.jsonPath().get("access_token");
+    }
+
+    public UserRegisterResponse createNewUser() {
+        UserRequest userData = new UserRequest(
+                "John",
+                "Doe",
+                "Street 1",
+                "City",
+                "State",
+                "Country",
+                "1234AA",
+                "0987654321",
+                "1970-01-01",
+                "jane1234@doe.example",
+                "welcome01"
+        );
+
+        String jsonUserData;
+
+        try {
+            jsonUserData = getObjectMapper().writeValueAsString(userData);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to convert object to JSON");
+        }
+
+        ValidatableResponse response = given()
+                .header("Content-Type", "application/json")
+                .body(jsonUserData)
+                .when()
+                .post("/users/register")
+                .then()
+                .statusCode(201);
+
+        return response.extract().body().jsonPath().getObject(".", UserRegisterResponse.class);
+    }
+
+    public String exampleUserToken() {
+        return bearer("jane1234@doe.example", "welcome01");
     }
 }

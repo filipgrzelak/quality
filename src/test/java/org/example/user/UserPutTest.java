@@ -1,23 +1,20 @@
 package org.example.user;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.example.BaseTest;
-import org.example.brand.model.BrandRequest;
-import org.example.brand.model.BrandResponse;
 import org.example.user.model.User;
 import org.example.user.model.UserRequest;
+import org.example.user.register.model.UserRegisterResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
-
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserPutTest extends BaseTest {
+class UserPutTest extends BaseTest {
 
     @BeforeEach
     void init() {
@@ -51,6 +48,47 @@ public class UserPutTest extends BaseTest {
 
         String responseMessage = response.extract().body().jsonPath().getString("message");
         assertEquals("Unauthorized", responseMessage);
+    }
+
+    @Test
+    void updateUserSuccessful() {
+
+        UserRegisterResponse newUser = createNewUser();
+
+        UserRequest updatedUserData = new UserRequest(
+                "EditedFirst",
+                "EditedLast",
+                "EditedAddress",
+                "EditedCity",
+                "EditedState",
+                "EditedCountry",
+                "EditedPost",
+                "123321123",
+                "1970-01-01",
+                "jane1234@doe.example",
+                "welcome01"
+        );
+
+        String updatedJsonUserData;
+        try {
+            updatedJsonUserData = getObjectMapper().writeValueAsString(updatedUserData);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to convert object to JSON");
+        }
+
+        ValidatableResponse response = given()
+                .header("Authorization", adminToken())
+                .header("Content-Type", ContentType.JSON)
+                .body(updatedJsonUserData)
+                .when()
+                .put("/users/%s".formatted(newUser.id()))
+                .then()
+                .statusCode(200);
+
+        String responseMessage = response.extract().body().jsonPath().getString("success");
+        assertEquals("true", responseMessage);
+
+        deleteObject(newUser.id(), "/users/%s");
     }
 
     public User exampleIdPresentInDatabaseOfSpecificType() {
