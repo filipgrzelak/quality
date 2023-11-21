@@ -1,4 +1,4 @@
-package ui.test.pawel;
+package ui.test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
@@ -15,8 +15,8 @@ public class BaseUITest {
     public static final String URL_LOGIN = "https://practicesoftwaretesting.com/#/auth/login";
     public static final String ADMIN_EMAIL = "admin@practicesoftwaretesting.com";
     public static final String ADMIN_PASSWORD = "welcome01";
-    WebDriver driver;
-    WebDriverWait wait;
+    public WebDriver driver;
+    public WebDriverWait wait;
 
     @BeforeEach
     public void setUp() {
