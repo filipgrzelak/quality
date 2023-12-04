@@ -16,8 +16,32 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:5.3.2'
     testImplementation 'org.awaitility:awaitility:3.0.0'
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    testImplementation 'io.cucumber:cucumber-java:6.10.4'
+    testImplementation 'io.cucumber:cucumber-junit:6.10.4'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.7.2'
 }
 
 test {
     useJUnitPlatform()
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+tasks.register('cucumberCli') {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [
+                    '--plugin', 'pretty',
+                    '--plugin', 'html:target/cucumber-report.html',
+                    '--glue', 'bdd.test',
+                    'src/test/resources']
+        }
+    }
 }

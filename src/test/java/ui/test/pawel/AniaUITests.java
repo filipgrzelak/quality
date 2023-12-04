@@ -5,13 +5,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import ui.test.BaseUITest;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AniaUITests extends BaseUITest{
+public class AniaUITests extends BaseUITest {
 
     public static final String URL_PRODUCTS_ADD = "https://practicesoftwaretesting.com/#/admin/products/add";
     public static final String URL_PRODUCTS = "https://practicesoftwaretesting.com/#/admin/products";
