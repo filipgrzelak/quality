@@ -1,7 +1,6 @@
 package org.example.user.login;
 
 import io.restassured.RestAssured;
-import io.restassured.response.ResponseBody;
 import io.restassured.response.ValidatableResponse;
 import org.example.BaseTest;
 import org.example.model.AuthLoginRequest;
@@ -23,7 +22,7 @@ class UserLoginPostTest extends BaseTest {
 
     @Test
     void userLoginSuccessful() {
-        AuthLoginRequest authData = new AuthLoginRequest("customer@practicesoftwaretesting.com", "welcome01");
+        AuthLoginRequest authData = new AuthLoginRequest("customer2@practicesoftwaretesting.com", "welcome01");
         String jsonAuthData;
 
         try {
@@ -34,6 +33,7 @@ class UserLoginPostTest extends BaseTest {
 
         ValidatableResponse response = given()
                 .header("Content-Type", "application/json")
+                .header("Authorization", adminToken())
                 .body(jsonAuthData)
                 .when()
                 .post("/users/login")

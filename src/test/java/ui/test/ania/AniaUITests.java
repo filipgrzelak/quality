@@ -1,4 +1,4 @@
-package ui.test.pawel;
+package ui.test.ania;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -50,8 +50,8 @@ public class AniaUITests extends BaseUITest {
         locationOfferInput.click();
         itemForRentInput.click();
         selectBrand.selectByVisibleText("Brand name 1");
-        selectCategory.selectByVisibleText("Hand Tools");
-        selectImage.selectByValue("01HFW6ET93N9BW7PF1B161PBVN");
+        selectCategory.selectByValue("01HH2PZP033NT9DJMKQS1E5202");
+        selectImage.selectByVisibleText("Pliers");
 
         saveButton.click();
 
