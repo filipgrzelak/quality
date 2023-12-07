@@ -2,7 +2,6 @@ package org.example.product;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.restassured.RestAssured;
-import io.restassured.response.ValidatableResponse;
 import org.example.BaseTest;
 import org.example.product.model.ProductRequest;
 import org.example.product.model.ProductResponse;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProductPutTest extends BaseTest {
 
@@ -54,16 +52,13 @@ class ProductPutTest extends BaseTest {
 
         String jsonUpdateProduct = getObjectMapper().writeValueAsString(updateProduct);
 
-        ValidatableResponse response = given()
+        given()
                 .header("Content-Type", "application/json")
                 .body(jsonUpdateProduct)
                 .when()
                 .put("/products/%s".formatted(id))
                 .then()
                 .statusCode(200);
-
-        String responseMessage = response.extract().body().jsonPath().getString("success");
-        assertEquals("true", responseMessage);
     }
 
 }

@@ -6,6 +6,7 @@ public record ProductResponse(
         String description,
         double price,
         int is_location_offer,
-        int is_rental) {
+        int is_rental,
+        String message) {
 }
 

@@ -43,7 +43,7 @@ class ProductDeleteTest extends BaseTest {
 
         String id = productResponse.id();
 
-        ValidatableResponse response = given()
+        given()
                 .header("Authorization", adminToken())
                 .when()
                 .delete("/products/%s".formatted(id))
