@@ -45,7 +45,7 @@ public class AniaBDDTest extends BaseBDDTest {
 
         Select selectCountry = new Select(countryInput);
 
-        WebElement registerButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-primary")));
+        WebElement saveButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("btn-primary")));
 
         firstNameInput.sendKeys("Test Name");
         lastNameInput.sendKeys("Test Surname");
@@ -60,12 +60,12 @@ public class AniaBDDTest extends BaseBDDTest {
         emailInput.sendKeys("janedoe123@mail.com");
         passwordInput.sendKeys("example123");
 
-        registerButton.click();
+        saveButton.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert-success")));
     }
 
-    @Then("The new user should be visible in the users list")
-    public void the_new_category_should_be_visible_in_the_users_list_and_delete() {
+    @Then("New user should be visible in the users list and delete user")
+    public void new_user_should_be_visible_in_the_users_list_and_delete_user() {
         driver.get(URL_USERS);
 
         By tableCol1 = By.xpath("//td[text()='Test Name Test Surname']");
