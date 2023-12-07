@@ -21,7 +21,7 @@ public class FilipBDDTest extends BaseBDDTest {
     public static final String URL_BRANDS = "https://practicesoftwaretesting.com/#/admin/brands";
     public static final String URL_BRANDS_ADD = "https://practicesoftwaretesting.com/#/admin/brands/add";
 
-    @Given("I am logged in as an admin")
+    @Given("I am logged in as an admin to access brands page")
     public void loginAsAdminState(){
         loginAsAdmin();
     }

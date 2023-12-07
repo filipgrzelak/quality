@@ -19,8 +19,8 @@ public class AniaBDDTest extends BaseBDDTest {
     public static final String URL_USERS_ADD = "https://practicesoftwaretesting.com/#/admin/users/add";
     public static final String URL_USERS = "https://practicesoftwaretesting.com/#/admin/users";
 
-    @Given("I am logged in as an admin")
-    public void i_am_logged_in_as_an_admin() {
+    @Given("I am logged in as an admin to access users page")
+    public void i_am_logged_in_as_admin_to_access_users_page() {
         loginAsAdmin();
     }
 
