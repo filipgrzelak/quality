@@ -1,4 +1,4 @@
-package ui.test.pawel;
+package ui.test.ania;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
