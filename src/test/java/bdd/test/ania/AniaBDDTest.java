@@ -5,7 +5,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -31,8 +30,8 @@ public class AniaBDDTest extends BaseBDDTest {
 
     @When("I enter user details and save")
     public void i_enter_user_details_and_save() {
-        WebElement firstNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("first_name")));
-        WebElement lastNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("last_name")));
+        WebElement firstNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("firstname")));
+        WebElement lastNameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("lastname")));
         WebElement dateOfBirthInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dob")));
         WebElement addressInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("address")));
         WebElement postcodeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("postcode")));
@@ -41,6 +40,7 @@ public class AniaBDDTest extends BaseBDDTest {
         WebElement countryInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("country")));
         WebElement phoneInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("phone")));
         WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("email")));
+        WebElement failedLoginAttemptsInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("failed_login_attempts")));
         WebElement passwordInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("password")));
 
         Select selectCountry = new Select(countryInput);
@@ -49,8 +49,7 @@ public class AniaBDDTest extends BaseBDDTest {
 
         firstNameInput.sendKeys("Test Name");
         lastNameInput.sendKeys("Test Surname");
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("arguments[0].value = '24122020'", dateOfBirthInput);
+        dateOfBirthInput.sendKeys("24122003");
         addressInput.sendKeys("Test address 123");
         postcodeInput.sendKeys("12-123");
         cityInput.sendKeys("Test City");
@@ -58,6 +57,7 @@ public class AniaBDDTest extends BaseBDDTest {
         selectCountry.selectByValue("FJ");
         phoneInput.sendKeys("123123123");
         emailInput.sendKeys("janedoe123@mail.com");
+        failedLoginAttemptsInput.sendKeys("3");
         passwordInput.sendKeys("example123");
 
         saveButton.click();
